@@ -29,7 +29,7 @@ class UserUpdate(UserBase):
     password: str | None = Field(default=None, min_length=8, max_length=40)
 
 
-class UserUpdateMe(SQLModel):
+class UserUpdateMe(UserBase):
     full_name: str | None = Field(default=None, max_length=255)
     email: EmailStr | None = Field(default=None, max_length=255)
 
