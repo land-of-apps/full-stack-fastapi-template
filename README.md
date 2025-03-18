@@ -81,6 +81,7 @@ $ env CFLAGS="-Wno-error=deprecated-declarations" uv pip install -e .
    Uses .env to set the environment variables.
 
    ```sh
+   $ pip install appmap
    $ appmap-python fastapi dev
    ```
 
