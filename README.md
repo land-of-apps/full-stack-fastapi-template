@@ -41,6 +41,7 @@ Connectivity to a PostgreSQL instance is required.
    ```
 
 3. Install backend dependencies (if you get compilation warnings, consider the alternative procedure in 3.1).
+
    ```sh
    $ cd backend
    $ pip install uv
@@ -53,15 +54,32 @@ Connectivity to a PostgreSQL instance is required.
 $ cd backend
 $ pip install --upgrade pip
 $ pip install uv
-$ CFLAGS="-Wno-error=deprecated-declarations" uv pip install -e .
+$ env CFLAGS="-Wno-error=deprecated-declarations" uv pip install -e .
 ```
 
-4. Initialize the database.
+4. Create and run the database.
+
+   ```sh
+   $ docker build -t postgres-standalone ./db
+   $ docker run -d \
+      --name postgres-db \
+      -p 127.0.0.1:5432:5432 \
+      -v postgres-data:/var/lib/postgresql/data/pgdata \
+      postgres-standalone
+   ```
+
+5. Initialize the database.
+
    ```sh
    $ createdb -U postgres -h localhost app
+   # Enter the password: 'postgres'
    $ alembic upgrade head
    ```
-5. Run the backend application with AppMap.
+
+6. Run the backend application with AppMap.
+
+   Uses .env to set the environment variables.
+
    ```sh
    $ appmap-python fastapi dev
    ```
