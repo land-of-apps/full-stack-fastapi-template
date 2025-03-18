@@ -40,12 +40,22 @@ Connectivity to a PostgreSQL instance is required.
    .\.venv\Scripts\Activate.ps1
    ```
 
-3. Install backend dependencies.
+3. Install backend dependencies (if you get compilation warnings, consider the alternative procedure in 3.1).
    ```sh
    $ cd backend
    $ pip install uv
    $ uv sync
    ```
+
+3.1 Alternative: Install backend dependencies with `pipenv`.
+
+```sh
+$ cd backend
+$ pip install --upgrade pip
+$ pip install uv
+$ CFLAGS="-Wno-error=deprecated-declarations" uv pip install -e .
+```
+
 4. Initialize the database.
    ```sh
    $ createdb -U postgres -h localhost app
